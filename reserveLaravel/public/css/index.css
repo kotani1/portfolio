@@ -1,0 +1,42 @@
+.main {
+  text-align: center;
+}
+
+table {
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+}
+
+td,
+th {
+  height: 45px;
+}
+
+td:hover {
+  color: #ffffff;
+  background-color: blue;
+  cursor: pointer;
+}
+
+td[disabled] {
+  pointer-events: none;
+}
+
+button {
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
+.flex {
+  display: flex;
+  justify-content: center;
+}
+
+.item {
+  margin-right: 20px;
+  margin-bottom: 10px;
+}

@@ -1,20 +1,9 @@
-  @extends('layouts.app')
-  <style>
-    .main {
-      text-align: center;
-    }
-
-    .flex {
-      display: flex;
-      justify-content: center;
-    }
-
-    .item {
-      margin: 20px 20px 0 20px;
-    }
-  </style>
+@extends('layouts.app')
 @section('title','formCheck')
-@section('content')
+@section('css')
+<link rel="stylesheet" href="/css/formCheck.css">
+@endsection
+@section('body')
   <div class="main">
     <h2>確認画面</h2>
     <p>予約日時： {{$dateView}}</p>

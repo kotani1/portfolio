@@ -1,20 +1,9 @@
 @extends('layouts.app')
-<style>
-  .err {
-    color: red;
-  }
-
-  .flex {
-    display: flex;
-  }
-
-  .item {
-    margin: 20px 20px 0 20px;
-  }
-</style>
-
 @section('title','login')
-@section('content')
+@section('css')
+<link rel="stylesheet" href="/css/login.css">
+@endsection
+@section('body')
 <form action="" method="POST">
   @csrf
   <p> メールアドレス:
@@ -28,7 +17,7 @@
   </p>
   <p> パスワード:
     <input type="password" name="password">
-    @isset($err['password'])
+  @isset($err['password'])
   <p class="err">{{$err['password']}}</p>
   @endisset
   @isset($err['notPassword'])

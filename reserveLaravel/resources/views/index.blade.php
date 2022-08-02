@@ -12,69 +12,17 @@ function createTd($time1, $time2)
 }
 ?>
 @extends('layouts.app')
-<style>
-  .main {
-    text-align: center;
-  }
-
-  table {
-    margin-left: auto;
-    margin-right: auto;
-    width: 80%;
-  }
-
-  td,
-  th {
-    height: 45px;
-  }
-
-  td:hover {
-    color: #ffffff;
-    background-color: blue;
-    cursor: pointer;
-  }
-
-  td[disabled] {
-    pointer-events: none;
-  }
-
-  button {
-    width: 100%;
-    height: 100%;
-    border: none;
-    outline: none;
-    background: transparent;
-  }
-
-  .flex {
-    display: flex;
-    justify-content: center;
-  }
-
-  .item {
-    margin-right: 20px;
-    margin-bottom: 10px;
-  }
-
-  li {
-    list-style: none;
-  }
-</style>
-
 @section('title','Top')
-
-@section('content')
-
-@isset($_SESSION['msg'])
-<script>
-  alert("<?= $_SESSION['msg'] ?>");
-</script>
-<?php unset($_SESSION['msg']); ?>
-@endisset
+@section('css')
+<link rel="stylesheet" href="/css/index.css">
+@endsection
+@section('body')
+<script src="/js/script.js"></script>
 <div class="main">
   <h2>予約システム</h2>
   <p>赤色は本人、青はその他のユーザー</p>
   @if(isset($_SESSION['id']))
+  <h3> {{$name}} さんようこそ</h3>
   <div class="flex">
     <div class="item" id="info"><a href="/info">予約情報・キャンセル</a></div>
     <div class="item"><a href="/logout">ログアウト</a></div>
@@ -84,6 +32,9 @@ function createTd($time1, $time2)
     <div class="item"><a href="/submit">会員登録</a></div>
     <div class="item"><a href="/login">ログイン</a></div>
   </div>
+  <script>
+    not_click();
+  </script>
   @endif
   <table border="2">
     <tr>
@@ -106,42 +57,12 @@ function createTd($time1, $time2)
   </table>
 </div>
 <script>
-  //予約されているtdの色を変更する処理
-  $(function() {
-    $.ajax({
-      type: 'GET',
-      url: "https://agile-sierra-61895.herokuapp.com/json",
-      dataType: 'json',
-    }).done(function(data) {
-      console.log(data);
-      let buttons = document.querySelectorAll('button');
-      for (let i = 0; i < data.length; i++) {
-        for (let j = 0; j < buttons.length; j++) {
-          if (buttons[j].value == '<?php echo substr($date, 0, 16); ?>') {
-            let td = buttons[j].parentNode;
-            td.setAttribute("bgcolor", "red");
-            let tds = document.querySelectorAll('td');
-            for (let i = 0; i < tds.length; i++) {
-              tds[i].setAttribute("disabled", true);
-            }
-          } else if (buttons[j].value == data[i]) {
-            let td = buttons[j].parentNode;
-            td.setAttribute("bgcolor", "blue");
-            td.setAttribute("disabled", true);
-          }
-        }
-      }
-    })
-  })
+  reserved('<?= substr($date, 0, 16); ?>');
 </script>
-@if(!isset($_SESSION['id']))
+@isset($_SESSION['msg'])
 <script>
-  $(function() {
-    $('button').css('pointer-events', 'none');
-    $('td').on('click', function() {
-      alert('予約するには会員登録又はログインしてください');
-    })
-  })
+  alert("<?= $_SESSION['msg'] ?>");
 </script>
-@endif
+<?php unset($_SESSION['msg']); ?>
+@endisset
 @endsection

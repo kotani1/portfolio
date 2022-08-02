@@ -1,23 +1,9 @@
 @extends('layouts.app')
-  <style>
-  .main {
-    text-align: center;
-  }
-
-  .flex {
-    display: flex;
-    justify-content: center;
-  }
-
-  .item {
-    margin: 20px 20px 0 20px;
-  }
-  li{
-    list-style: none;
-  }
-</style>
 @section('title','form')
-@section('content')
+@section('css')
+<link rel="stylesheet" href="/css/form.css">
+@endsection
+@section('body')
 <div class="main">
   <p>予約日時： {{$dateView}}</p>
   <p>メニュー</p>

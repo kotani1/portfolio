@@ -13,11 +13,11 @@ class FormController extends Controller
     public $week = ['日', '月', '火', '水', '木', '金', '土'];
     public function index()
     {
+        session_start();
         $name='';
         $date = '';
         $today = date('Y-m-d');
         $reserve = Reserve::where('date', '>', $today)->get();
-        session_start();
         if (isset($_SESSION['id'])) {
             $name = $_SESSION['name'];
             if ($result = $reserve->where('userId', $_SESSION['id'])->first()) {
@@ -73,6 +73,7 @@ class FormController extends Controller
     }
     public function info()
     {
+        session_start();
         if (isset($_SESSION['result'])) {
             $info = $_SESSION['result'];
         } else {

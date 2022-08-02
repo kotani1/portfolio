@@ -1,19 +1,9 @@
 @extends('layouts.app')
-<style>
-  .err {
-    color: red;
-  }
-
-  .flex {
-    display: flex;
-  }
-
-  .item {
-    margin: 20px 20px 0 20px;
-  }
-</style>
 @section('title','submit')
-@section('content')
+@section('css')
+<link rel="stylesheet" href="/css/submit.css">
+@endsection
+@section('body')
 <form action="" method="POST">
   @csrf
   <p> 名前: <input type="text" name="name"></p>

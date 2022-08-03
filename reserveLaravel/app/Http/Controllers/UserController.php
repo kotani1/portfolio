@@ -13,11 +13,11 @@ class UserController extends Controller
     public function submit(Request $request)
     {
         session_start();
-        $name = $request->input('name');
-        $phone = $request->input('phone');
-        $email = $request->input('email');
-        $password = $request->input('password');
-        $password_conf = $request->input('password_conf');
+        $name = $request->name;
+        $phone = $request->phone;
+        $email = $request->email;
+        $password = $request->password;
+        $password_conf = $request->password_conf;
         $err=[];
 
         if(empty($name)){
@@ -40,8 +40,9 @@ class UserController extends Controller
         if($item = User::where('email', $email)->value('email')){
             $err['isset'] = 'このメールアドレスは既に登録されています';
         }
+
         if(count($err)>0){
-            return view('/submit', compact('err'));
+            return view('submit', compact('err'));
         }else{
             $user = new User();
             $password = password_hash($password, PASSWORD_DEFAULT);
@@ -51,7 +52,7 @@ class UserController extends Controller
                 'phone' => $phone,
                 'password' => $password,
             ]);
-            $_SESSION['name'] = $model->$name;
+            $_SESSION['name'] = $model->name;
             $_SESSION['id'] = $model->id;
             $_SESSION['msg'] = '登録完了しました';
             header('Location: /');
@@ -79,6 +80,9 @@ class UserController extends Controller
         if (empty($password)) {
             $err['password'] = 'パスワードを入力してください';
         }
+        if (count($err) > 0) {
+            return view('login', compact('err'));
+        }
         if($user = User::where('email', $email)->first()) {
             if (password_verify($password, $user['password'])) {
                 $_SESSION['id'] = $user['id'];
@@ -93,7 +97,7 @@ class UserController extends Controller
             $err['notEmail'] = "メールアドレスが違います";
         }
         if (count($err) > 0) {
-            return view('/login', compact('err'));
+            return view('login', compact('err'));
         }
 
     }

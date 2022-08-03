@@ -22,7 +22,7 @@ function createTd($time1, $time2)
   <h2>予約システム</h2>
   <p>赤色は本人、青はその他のユーザー</p>
   @if(isset($_SESSION['id']))
-  <h3> {{$name}} さんようこそ</h3>
+  <h3> <?= $_SESSION['name']; ?> さんようこそ</h3>
   <div class="flex">
     <div class="item" id="info"><a href="/info">予約情報・キャンセル</a></div>
     <div class="item"><a href="/logout">ログアウト</a></div>

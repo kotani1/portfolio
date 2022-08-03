@@ -14,18 +14,19 @@ class FormController extends Controller
     public function index()
     {
         session_start();
-        $name='';
         $date = '';
         $today = date('Y-m-d');
         $reserve = Reserve::where('date', '>', $today)->get();
+        if(isset($_SESSION['dbresult'])){
+            return view('index');
+        }
         if (isset($_SESSION['id'])) {
-            $name = $_SESSION['name'];
             if ($result = $reserve->where('userId', $_SESSION['id'])->first()) {
                 $date = $result->date;
-                $_SESSION['result'] = $result;
+                $_SESSION['dbresult'] = $result;
             }
         }
-        return view('index', compact('date','name'));
+        return view('index', compact('date'));
     }
     public function form(Request $request)
     {
@@ -74,8 +75,8 @@ class FormController extends Controller
     public function info()
     {
         session_start();
-        if (isset($_SESSION['result'])) {
-            $info = $_SESSION['result'];
+        if (isset($_SESSION['dbresult'])) {
+            $info = $_SESSION['dbresult'];
         } else {
             $info = '';
         }
@@ -84,7 +85,9 @@ class FormController extends Controller
     public function chancel()
     {
         session_start();
-        Reserve::where('id', $_SESSION['result']->id)->delete();
+        Reserve::where('id', $_SESSIO
+        N['dbresult']->id)->delete();
+        unset($_SESSION['dbresult']);
         $_SESSION['msg'] = 'キャンセルしました';
         header('Location: /');
         exit();

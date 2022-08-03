@@ -18,7 +18,8 @@ class FormController extends Controller
         $today = date('Y-m-d');
         $reserve = Reserve::where('date', '>', $today)->get();
         if(isset($_SESSION['dbresult'])){
-            return view('index');
+            $date = $_SESSION['dbresult']->date;
+            return view('index',compact('date'));
         }
         if (isset($_SESSION['id'])) {
             if ($result = $reserve->where('userId', $_SESSION['id'])->first()) {

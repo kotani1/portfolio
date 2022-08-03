@@ -85,8 +85,7 @@ class FormController extends Controller
     public function chancel()
     {
         session_start();
-        Reserve::where('id', $_SESSIO
-        N['dbresult']->id)->delete();
+        Reserve::where('id', $_SESSION['dbresult']->id)->delete();
         unset($_SESSION['dbresult']);
         $_SESSION['msg'] = 'キャンセルしました';
         header('Location: /');

@@ -1,0 +1,13 @@
+
+h2 {
+    margin: 10px 5px 5px 10px;
+}
+
+.card {
+    display: inline-block;
+    height: 120px;
+    width: 80px;
+}
+.center{
+    text-align: center;
+}

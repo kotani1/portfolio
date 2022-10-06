@@ -2,8 +2,7 @@
 $week = ['日', '月', '火', '水', '木', '金', '土'];
 function createTd($time1, $time2)
 {
-  echo '<tr>
-  <th>' . $time1 . '</th>';
+  echo '<tr><th>' . $time1 . '</th>';
   for ($i = 1; $i < 8; $i++) {
     echo '<td><button
     type="submit" value="' . date("Y-m-d ", strtotime("$i day")) . $time2 . '"name="date"></button></td>';
